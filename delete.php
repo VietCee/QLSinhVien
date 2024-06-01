@@ -8,6 +8,6 @@ require_once 'connect.php';
 $xoa_sql = "DELETE FROM tblsinhvien WHERE id=$svid";
 
 if(mysqli_query($conn, $xoa_sql)){
-    header("Location: list.php");
+    header("Location: index.php");
 }
 

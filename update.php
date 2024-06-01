@@ -15,9 +15,6 @@ $updatesql = "UPDATE tblsinhvien SET mssv='$mssv', hoten= '$hoten', lop='$lop',t
 // echo $updatesql; exit;
 //thuc thi cau lenh them
 if (mysqli_query($conn, $updatesql)){
-    //in thong bao thanh cong
-    //tro ve trang liet ke
-
-header("Location: list.php?status=updated");
+    header("Location: index.php?status=updated");
 }
 

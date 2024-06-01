@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql = "INSERT INTO tblsinhvien (mssv, hoten, lop,tgianhoc,hocphi) VALUES ('$mssv', '$hoten', '$lop','$tgianhoc','$hocphi')";
     if (mysqli_query($conn, $sql)) {
         echo 'Thêm sinh viên thành công';
-        header("Location: list.php");
+        header("Location: index.php");
 
     } else {
         echo 'Lỗi: ' . mysqli_error($conn);
