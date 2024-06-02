@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tgianhoc = $_POST['tgianhoc'];
     $hocphi = $tgianhoc * 500000;
 
-    if (empty($mssv) || empty($hoten) || empty($lop) || empty($hocphi)) {
+    if (empty($mssv) || empty($hoten) || empty($lop) || empty($tgianhoc)) {
         echo 'Vui lòng điền đầy đủ thông tin.';
         exit;
     }
@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (mysqli_query($conn, $sql)) {
         echo 'Thêm sinh viên thành công';
         header("Location: index.php");
-
     } else {
         echo 'Lỗi: ' . mysqli_error($conn);
     }

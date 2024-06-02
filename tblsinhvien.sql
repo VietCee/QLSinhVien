@@ -53,8 +53,8 @@ INSERT INTO `tblsinhvien` (`id`, `mssv`, `hoten`, `lop`, `tgianhoc`, `hocphi`) V
 --
 -- Chỉ mục cho bảng `tblsinhvien`
 --
-ALTER TABLE `tblsinhvien`
-  ADD PRIMARY KEY (`id`);
+  ALTER TABLE `tblsinhvien`
+    ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
