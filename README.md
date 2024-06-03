@@ -55,6 +55,25 @@
      + Add subnets: Availability Zone : ap-south-1a và ap-south-1b
      + Subnets: Chọn 10.0.0.32/28 và 10.0.0.48/28
 - Chọn Databases:
+     + Create database
      + Standard create
      + Engine options : MySQL
+     + Templates: Free tier
+     + Ở Settings: đặt DB = myRDS - set master user name và password
+     + Ở Storage: bỏ tích Enable storage autoscaling
+     + Ở Connectivity: VPC chọn my-vpc-1
+     + VPC security group (firewall): chọn Create new => security group name = mySG1
+     + Create database
+## Bước 4: Tạo EC2
+- Chọn AMI Catalog => Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type
+- Chọn SELECT => Launch instance with AMI
+- Name and tags: Website QLSV
+- Key pair: Vockey
+- Network Settings => Edit
+     + VPC : my-vpc-1
+     + Subnet: public-sb-1
+     + Auto-assign public IP: Enable
+     + Firewall: Chọn Select existing security group
+     + Common security groups: mySG1
+  
   
