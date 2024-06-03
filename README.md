@@ -64,7 +64,7 @@
      + Ở Connectivity: VPC chọn my-vpc-1
      + VPC security group (firewall): chọn Create new => security group name = mySG1
      + Create database
-## Bước 4: Tạo EC2
+## Bước 4: Tạo instance từ EC2
 - Chọn AMI Catalog => Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type
 - Chọn SELECT => Launch instance with AMI
 - Name and tags: Website QLSV
@@ -75,5 +75,56 @@
      + Auto-assign public IP: Enable
      + Firewall: Chọn Select existing security group
      + Common security groups: mySG1
-  
-  
+- Chọn Launch instance
+- Sau khi tạo xong EC2, chọn vào EC2 vừa tạo và chọn Security
+- Ở Inbound rules, chọn mySG1 để mở security group => chọn inbound rules => edit inbound rules
+- Ở phần MYSQL/Aurora , chuyển Source về địa chỉ IPv4 private instance của mình
+- Add rule => Type: SSH => Source: 0.0.0.0/0
+- Add rule => Type: HTTTP => Source: 0.0.0.0/0
+- Save rules
+## Bước 5: Kết nối database với instance của mình
+- Chọn instance Website QLSV, sau đó ở phía góc trên chọn Connect, mở sang Terminal
+- Từ đây ta sẽ setup các lệnh sau:
+   ```
+   // Các bước connect
+   - EC2
+    - sudo yum update -y
+   - install php
+    - sudo amazon-linux-extras | grep php
+    - sudo amazon-linux-extras enable php8.0
+    - sudo yum clean metadata
+    - sudo yum install php-cli php-pdo php-fpm php-mysqlnd -y
+    - php -v
+   - Install Apache HTTP Sever
+    - sudo yum install  httpd -y
+    - sudo systemctl start httpd
+    - sudo systemctl enable httpd
+   - Set file permission for Apache webserver
+    - sudo usermod -a -G apache ec2-user
+    - exit
+    - groups ( ec2-user adm wheel apache systemd-journal)
+    - sudo chown -R ec2-user:apache /var/www
+    - sudo chmod 2775 /var/www
+    - find /var/www -type d -exec sudo chmod 2775 {} \;
+    - find /var/www -type f -exec sudo chmod 0664 {} \;
+   - Check connect to RDS from EC2
+    - sudo yum install telnet -y
+    - telnet + endpoint + 3306
+   - creata database
+    - sudo yum install mysql -y
+    - truy cap dung : mysql -h end-point-database -u admin -p
+   ```
+- Import source code từ Github
+   ```
+   - mkdir aws_assg ( với aws_assg là folder tạo để lưu project, sau đó chuyển tất cả vào html sau)
+   - cd aws_assg
+   - wget https://github.com/VietCee/QLSinhVien.git
+   - wget https://github.com/VietCee/QLSinhVien/archive/refs/heads/main.zip
+   - ls -lrt
+   - unzip main.zip
+   - cd QLSinhVien-main ( chuyển đến file đã unzip)
+   - mv * /var/www/html
+   - systemctl enable httpd
+   - systemctl start httpd
+   ```
+- Tạo database và dự án của tôi đã hoàn thành
